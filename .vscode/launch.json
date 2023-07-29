@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "Flutter (CPH2357)",
+      "program": "lib/main.dart",
+      "deviceId": "CPH2357",
+      "request": "launch",
+      "type": "dart"
+    }
+  ]
+}
