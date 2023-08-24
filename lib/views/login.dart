@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:night_in/components/loginForm.dart';
+
+import '../components/login_form.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key); // Constructor
@@ -40,11 +41,11 @@ class _LoginState extends State<Login> {
               ),
             ),
             const Align(
-              alignment: AlignmentDirectional(2.155, -0.4),
+              alignment: AlignmentDirectional(0.07, -0.4),
               child: Image(
-                height: 336,
-                width: 336,
                 image: AssetImage('images/big-guy.png'),
+                width: 336,
+                height: 336,
               ),
             ),
             Align(
@@ -90,7 +91,10 @@ class _LoginState extends State<Login> {
                 height: 49,
                 width: 313,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true)
+                        .pushNamed('/register');
+                  },
                   style: ElevatedButton.styleFrom(
                     elevation: 0,
                     backgroundColor: Colors.black,

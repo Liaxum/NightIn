@@ -63,7 +63,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        width: 2,
+                        width: 1,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -89,7 +89,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                        width: 2,
+                        width: 1,
                       ),
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -118,9 +118,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 57,
-                ),
+                const Spacer(),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
@@ -158,6 +156,9 @@ class _LoginFormState extends State<LoginForm> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+                ),
+                const SizedBox(
+                  height: 30,
                 ),
               ],
             ),

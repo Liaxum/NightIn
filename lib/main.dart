@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'views/login.dart';
+import 'views/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         // All available pages
         '/': (_) => const Login(),
+        '/register': (_) => const Register(),
       },
       theme: ThemeData(
         textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Montserrat'),
