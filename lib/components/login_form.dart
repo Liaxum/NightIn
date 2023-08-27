@@ -120,7 +120,9 @@ class _LoginFormState extends State<LoginForm> {
                 ),
                 const Spacer(),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  },
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(313, 49),
                     elevation: 0,

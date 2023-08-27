@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.5
   intl_phone_field: ^3.2.0
   pinput: ^3.0.0
+  carousel_indicator: ^1.0.6
+  is_first_run: ^1.0.0
 
 dev_dependencies:
   flutter_test:

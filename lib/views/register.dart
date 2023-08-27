@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
 
   next() {
     if (_tabController!.index == 3) {
-      Navigator.pushNamed(context, '/login');
+      Navigator.pushReplacementNamed(context, '/home');
     } else {
       _tabController!.animateTo(_tabController!.index + 1);
     }
@@ -46,17 +46,15 @@ class _RegisterState extends State<Register> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            BasicInfos(back: back, next: next),
-            CodeVerrif(back: back, next: next),
-            Identity(back: back, next: next),
-            RegisterEnd(back: back, next: next),
-          ],
-        ),
+    return Scaffold(
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          BasicInfos(back: back, next: next),
+          CodeVerrif(back: back, next: next),
+          Identity(back: back, next: next),
+          RegisterEnd(back: back, next: next),
+        ],
       ),
     );
   }

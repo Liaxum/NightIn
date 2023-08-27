@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'views/home.dart';
+import 'views/onboarding.dart';
 import 'views/login.dart';
 import 'views/register.dart';
 
@@ -12,16 +14,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        // All available pages
-        '/': (_) => const Login(),
-        '/register': (_) => const Register(),
-      },
-      theme: ThemeData(
-        textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Montserrat'),
+    return SafeArea(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/onboarding',
+        routes: <String, WidgetBuilder>{
+          // All available pages
+          '/onboarding': (_) => const Onboarding(),
+          '/login': (_) => const Login(),
+          '/home': (_) => const Home(),
+          '/register': (_) => const Register(),
+        },
+        theme: ThemeData(
+          textTheme:
+              Theme.of(context).textTheme.apply(fontFamily: 'Montserrat'),
+          scaffoldBackgroundColor: Colors.white,
+        ),
       ),
     );
   }
