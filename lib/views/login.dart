@@ -40,7 +40,7 @@ class _LoginState extends State<Login> {
             ),
           ),
           const Align(
-            alignment: AlignmentDirectional(0.07, -0.4),
+            alignment: AlignmentDirectional(0.02, -0.4),
             child: Image(
               image: AssetImage('images/big-guy.png'),
               width: 336,

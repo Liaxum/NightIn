@@ -18,20 +18,6 @@ class _CodeVerrifState extends State<CodeVerrif> {
       padding: const EdgeInsets.symmetric(horizontal: 31),
       child: Column(
         children: [
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  widget.back();
-                },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(40, 40),
-                  backgroundColor: Colors.black,
-                ),
-                child: const Icon(Icons.arrow_back_ios),
-              ),
-            ],
-          ),
           const SizedBox(
             height: 58,
           ),
@@ -100,7 +86,7 @@ class _CodeVerrifState extends State<CodeVerrif> {
             ),
           ),
           const SizedBox(
-            height: 56,
+            height: 46,
           ),
         ],
       ),

@@ -12,14 +12,12 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  double _index = 0;
-  PageController _pageController = PageController();
+  int _index = 0;
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   void initState() {
     super.initState();
-
-    _pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -29,9 +27,6 @@ class _OnboardingState extends State<Onboarding> {
   }
 
   _next() {
-    setState(() {
-      _index++;
-    });
     _pageController.nextPage(
         duration: const Duration(milliseconds: 400), curve: Curves.easeIn);
   }
@@ -52,13 +47,13 @@ class _OnboardingState extends State<Onboarding> {
                 const GoTab()
               ],
               onPageChanged: (index) => setState(() {
-                _index = index.toDouble();
+                _index = index;
               }),
             ),
           ),
           CarouselIndicator(
             count: 3,
-            index: _index.toInt(),
+            index: _index,
             color: const Color(0xFFEFEFF4),
             activeColor: Colors.black,
             height: 6,
