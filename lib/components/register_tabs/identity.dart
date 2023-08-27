@@ -7,7 +7,7 @@ class Identity extends StatefulWidget {
   const Identity({super.key, required this.back, required this.next});
 
   @override
-  _IdentityState createState() => _IdentityState();
+  State<StatefulWidget> createState() => _IdentityState();
 }
 
 class _IdentityState extends State<Identity> {

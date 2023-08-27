@@ -8,7 +8,7 @@ class BasicInfos extends StatefulWidget {
   const BasicInfos({super.key, required this.back, required this.next});
 
   @override
-  _BasicInfosState createState() => _BasicInfosState();
+  State<StatefulWidget> createState() => _BasicInfosState();
 }
 
 class _BasicInfosState extends State<BasicInfos> {

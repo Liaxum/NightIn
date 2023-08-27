@@ -7,7 +7,7 @@ class RegisterEnd extends StatefulWidget {
   const RegisterEnd({super.key, required this.back, required this.next});
 
   @override
-  _RegisterEndState createState() => _RegisterEndState();
+  State<StatefulWidget> createState() => _RegisterEndState();
 }
 
 class _RegisterEndState extends State<RegisterEnd> {

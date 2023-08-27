@@ -8,7 +8,7 @@ class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
 
   @override
-  State<Onboarding> createState() => _OnboardingState();
+  State<StatefulWidget> createState() => _OnboardingState();
 }
 
 class _OnboardingState extends State<Onboarding> {

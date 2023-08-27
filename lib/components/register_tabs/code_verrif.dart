@@ -8,7 +8,7 @@ class CodeVerrif extends StatefulWidget {
   const CodeVerrif({super.key, required this.back, required this.next});
 
   @override
-  _CodeVerrifState createState() => _CodeVerrifState();
+  State<StatefulWidget> createState() => _CodeVerrifState();
 }
 
 class _CodeVerrifState extends State<CodeVerrif> {
