@@ -1,4 +1,4 @@
-package com.example.night_in
+package com.night_in.night_in
 
 import io.flutter.embedding.android.FlutterActivity
 
