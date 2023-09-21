@@ -58,9 +58,7 @@ class GoTab extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(
-                  height: 65,
-                ),
+                const Spacer(),
                 ElevatedButton(
                   onPressed: () => {
                     Navigator.of(context).pushReplacementNamed('/login'),

@@ -60,9 +60,7 @@ class OutTab extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                const SizedBox(
-                  height: 65,
-                ),
+                const Spacer(),
                 ElevatedButton(
                   onPressed: () => next(),
                   style: ElevatedButton.styleFrom(
