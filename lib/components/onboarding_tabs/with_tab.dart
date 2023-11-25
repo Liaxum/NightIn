@@ -79,6 +79,9 @@ class WithTab extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 65,
+                ),
               ],
             ),
           ),

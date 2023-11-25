@@ -38,7 +38,11 @@ dependencies:
   intl_phone_field: ^3.2.0
   pinput: ^3.0.0
   carousel_indicator: ^1.0.6
+  card_slider: ^1.0.5
   is_first_run: ^1.0.0
+  google_maps_flutter: ^2.5.0
+  google_maps_flutter_web: ^0.5.4+2
+  geolocator: ^10.1.0
 
 dev_dependencies:
   flutter_test:

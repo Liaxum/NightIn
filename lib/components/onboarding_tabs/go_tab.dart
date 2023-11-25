@@ -79,6 +79,9 @@ class GoTab extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 65,
+                ),
               ],
             ),
           ),
