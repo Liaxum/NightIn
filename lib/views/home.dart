@@ -1,7 +1,12 @@
-import 'package:card_slider/card_slider.dart';
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:loop_page_view/loop_page_view.dart';
+import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:group_button/group_button.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key); // Constructor
@@ -11,49 +16,123 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late GoogleMapController mapController; // Google Map Controller
+  int _index = 0; // Carousel Index
+
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
   Set<Marker> _markers = {}; // Markers
 
-  late Future<Position> _center; // Center Map
+  final CameraPosition _initialPosition = const CameraPosition(
+    target: LatLng(48.8566, 2.3522),
+    zoom: 11.0,
+  );
 
   void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+    _controller.complete(controller);
   }
 
   @override
   void initState() {
     super.initState();
-    _center = Geolocator.getCurrentPosition();
+    //_center = Geolocator.getCurrentPosition();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Color> valuesDataColors = [
-      Colors.purple,
-      Colors.yellow,
-      Colors.green,
-      Colors.red,
-      Colors.grey,
-      Colors.blue,
+    List valuesDataColors = [
+      {"name": "Pachamma", "location": "Paris, France", "color": Colors.purple},
+      {"name": "Pachamma", "location": "Paris, France", "color": Colors.blue},
+      {"name": "Pachamma", "location": "Paris, France", "color": Colors.green}
     ];
 
-    List<Widget> valuesWidget = [];
-    for (int i = 0; i < valuesDataColors.length; i++) {
-      valuesWidget.add(
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(41),
-            color: valuesDataColors[i],
+    Widget loopPageBuilder(BuildContext context, int index) {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        padding: const EdgeInsets.only(left: 20, bottom: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color: valuesDataColors[index]["color"],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                valuesDataColors[index]["name"],
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xffFDFDFD),
+                ),
+              ),
+              Text(
+                valuesDataColors[index]["location"],
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w300,
+                  color: Color(0xffFDFDFD),
+                ),
+              ),
+            ],
           ),
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              i.toString(),
-              style: const TextStyle(
-                fontSize: 28,
+        ),
+      );
+    }
+
+    Widget recomandedBuilder(BuildContext context, int index) {
+      return Container(
+        height: 250,
+        padding: const EdgeInsets.all(11),
+        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0,
+              blurRadius: 10,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 150,
+              width: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: valuesDataColors[index]["color"],
               ),
             ),
-          ),
+            const SizedBox(height: 18),
+            Text(
+              valuesDataColors[index]["name"],
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Text(
+              valuesDataColors[index]["location"],
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
         ),
       );
     }
@@ -104,52 +183,201 @@ class _HomeState extends State<Home> {
             ),
             const Center(
               child: Text(
-                'Trouve des personnes pour rentrer en boite.',
+                'Trouve des personnes pour rentrer en boite ?',
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 30,
                   fontWeight: FontWeight.w700,
-                  color: Color(
-                    0xff0A2753,
+                  color: Color(0xff0A2753),
+                ),
+              ),
+            ),
+            const SizedBox(height: 28),
+            SizedBox(
+              height: 300,
+              width: 433,
+              child: LoopPageView.builder(
+                controller: LoopPageController(viewportFraction: 0.8),
+                itemCount: valuesDataColors.length,
+                itemBuilder: loopPageBuilder,
+                onPageChanged: (int index) {
+                  setState(() {
+                    _index = index;
+                  });
+                },
+              ),
+            ),
+            Center(
+              child: CarouselIndicator(
+                count: valuesDataColors.length,
+                index: _index,
+                color: const Color(0xFFEFEFF4),
+                activeColor: Colors.black,
+                height: 6,
+                width: 30,
+              ),
+            ),
+            const SizedBox(height: 43),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: GroupButton(
+                isRadio: true,
+                buttons: const [
+                  "Populaire",
+                  "Electro",
+                  "Rap",
+                  "Afro",
+                  "Trap",
+                  "Rock",
+                  "Jazz",
+                  "Classique"
+                ],
+                options: GroupButtonOptions(
+                  selectedColor: Colors.black,
+                  unselectedColor: const Color(0xFFFDFDFD),
+                  borderRadius: BorderRadius.circular(6),
+                  unselectedBorderColor: const Color(0xFFD6D6D6),
+                  unselectedTextStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff010101),
+                  ),
+                  selectedTextStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xffFDFDFD),
+                  ),
+                  selectedShadow: const <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.transparent,
+                    ),
+                  ],
+                  unselectedShadow: const <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.transparent,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 43),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Recommander',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                Ink(
+                  child: const InkWell(
+                    onTap: null,
+                    child: Text(
+                      'Voir tout',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(height: 14),
+            SizedBox(
+              height: 265,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: valuesDataColors.length,
+                itemBuilder: recomandedBuilder,
+              ),
+            ),
+            const SizedBox(height: 43),
+            const Text(
+              'FAQ',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 17),
+            const Text(
+              'Des interrogations, des questions, des craintes ou des demandes ? Notre FAQ peut vous permettre de répondre à vous besoins.',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            Ink(
+              child: InkWell(
+                onTap: () {},
+                child: const Text(
+                  'Lire plus...',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
             ),
-            CardSlider(
-              cards: valuesWidget,
-              bottomOffset: .0005,
-              cardHeight: 0.75,
-              itemDotOffset: 0.25,
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () => {},
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(122, 40),
+                elevation: 0,
+                backgroundColor: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text(
+                'Voir',
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
-            FutureBuilder(
-              future: _center,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasData) {
-                    // The user location returned from the snapshot
-                    Position? snapshotData = snapshot.data;
-                    LatLng userLocation =
-                        LatLng(snapshotData!.latitude, snapshotData.longitude);
-                    return GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: userLocation,
-                        zoom: 12,
-                      ),
-                      markers: _markers
-                        ..add(Marker(
-                            markerId: const MarkerId("User Location"),
-                            infoWindow:
-                                const InfoWindow(title: "User Location"),
-                            position: userLocation)),
-                    );
-                  } else {
-                    return const Center(
-                        child: Text("Failed to get user location."));
-                  }
-                }
-                // While the connection is not in the done state yet
-                return const Center(child: CircularProgressIndicator());
-              },
-            )
+            const SizedBox(height: 43),
+            const Text(
+              'La Carte',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 0,
+                    blurRadius: 10,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: GoogleMap(
+                  zoomGesturesEnabled: false,
+                  zoomControlsEnabled: false,
+                  tiltGesturesEnabled: false,
+                  scrollGesturesEnabled: false,
+                  rotateGesturesEnabled: false,
+                  myLocationButtonEnabled: false,
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: _initialPosition,
+                  markers: _markers,
+                ),
+              ),
+            ),
+            const SizedBox(height: 52),
           ],
         ),
       ),

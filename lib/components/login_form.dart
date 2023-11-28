@@ -105,9 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                     focusColor: Colors.transparent,
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
-                    onTap: () async {
-                      print('Hey');
-                    },
+                    onTap: () async {},
                     child: const Text(
                       'Mot de passe oublié ?',
                       style: TextStyle(
