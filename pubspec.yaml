@@ -46,6 +46,7 @@ dependencies:
   group_button: ^5.3.3
   curved_navigation_bar: ^1.0.3
   card_swiper : ^3.0.0
+  pointer_interceptor: ^0.9.3+7
 
 
 dev_dependencies:

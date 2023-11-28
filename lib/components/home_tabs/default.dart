@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:card_swiper/card_swiper.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class Default extends StatefulWidget {
   const Default({Key? key}) : super(key: key); // Constructor
@@ -302,18 +303,20 @@ class _DefaultState extends State<Default> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
-                      child: GoogleMap(
-                        zoomGesturesEnabled: false,
-                        zoomControlsEnabled: false,
-                        tiltGesturesEnabled: false,
-                        scrollGesturesEnabled: false,
-                        rotateGesturesEnabled: false,
-                        myLocationButtonEnabled: false,
-                        mapToolbarEnabled: false,
-                        //liteModeEnabled: !kIsWeb,
-                        onMapCreated: _onMapCreated,
-                        initialCameraPosition: _initialPosition,
-                        markers: _markers,
+                      child: PointerInterceptor(
+                        child: GoogleMap(
+                          zoomGesturesEnabled: false,
+                          zoomControlsEnabled: false,
+                          tiltGesturesEnabled: false,
+                          scrollGesturesEnabled: false,
+                          rotateGesturesEnabled: false,
+                          myLocationButtonEnabled: false,
+                          mapToolbarEnabled: false,
+                          //liteModeEnabled: !kIsWeb,
+                          onMapCreated: _onMapCreated,
+                          initialCameraPosition: _initialPosition,
+                          markers: _markers,
+                        ),
                       ),
                     ),
                   ),
