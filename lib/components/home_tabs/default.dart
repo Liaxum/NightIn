@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:card_swiper/card_swiper.dart';
 
@@ -14,8 +13,6 @@ class Default extends StatefulWidget {
 }
 
 class _DefaultState extends State<Default> {
-  int _index = 0; // Carousel Index
-
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
   final Set<Marker> _markers = {}; // Markers
@@ -313,7 +310,7 @@ class _DefaultState extends State<Default> {
                         rotateGesturesEnabled: false,
                         myLocationButtonEnabled: false,
                         mapToolbarEnabled: false,
-                        liteModeEnabled: !kIsWeb,
+                        //liteModeEnabled: !kIsWeb,
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: _initialPosition,
                         markers: _markers,
