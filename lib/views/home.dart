@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
       return Container(
         height: 250,
         padding: const EdgeInsets.all(11),
-        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,
@@ -139,62 +139,67 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 26), // Padding
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.menu),
-                ),
-                const SizedBox(width: 79),
-                const Icon(
-                  Icons.my_location,
-                  size: 25,
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: Text(
-                    'Paris, France',
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.menu),
+                      ),
+                      const SizedBox(width: 79),
+                      const Icon(
+                        Icons.my_location,
+                        size: 25,
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 5),
+                        child: Text(
+                          'Paris, France',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w300,
+                            color: Color(
+                              0xff6A778B,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 47),
+                  const Text(
+                    'Salut John,',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 23,
                       fontWeight: FontWeight.w300,
                       color: Color(
-                        0xff6A778B,
+                        0xff39414B,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 47),
-            const Text(
-              'Salut John,',
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.w300,
-                color: Color(
-                  0xff39414B,
-                ),
+                  const Center(
+                    child: Text(
+                      'Trouve des personnes pour rentrer en boite ?',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff0A2753),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 28),
+                ],
               ),
             ),
-            const Center(
-              child: Text(
-                'Trouve des personnes pour rentrer en boite ?',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff0A2753),
-                ),
-              ),
-            ),
-            const SizedBox(height: 28),
             SizedBox(
               height: 300,
-              width: 433,
               child: LoopPageView.builder(
                 controller: LoopPageController(viewportFraction: 0.8),
                 itemCount: valuesDataColors.length,
@@ -260,31 +265,39 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 43),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Recommander',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Ink(
-                  child: const InkWell(
-                    onTap: null,
-                    child: Text(
-                      'Voir tout',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Recommander',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
+                      Ink(
+                        child: const InkWell(
+                          onTap: null,
+                          child: Text(
+                            'Voir tout',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
+                  const SizedBox(height: 14),
+                ],
+              ),
             ),
-            const SizedBox(height: 14),
             SizedBox(
               height: 265,
               child: ListView.builder(
@@ -294,90 +307,99 @@ class _HomeState extends State<Home> {
               ),
             ),
             const SizedBox(height: 43),
-            const Text(
-              'FAQ',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 17),
-            const Text(
-              'Des interrogations, des questions, des craintes ou des demandes ? Notre FAQ peut vous permettre de répondre à vous besoins.',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            Ink(
-              child: InkWell(
-                onTap: () {},
-                child: const Text(
-                  'Lire plus...',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'FAQ',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () => {},
-              style: ElevatedButton.styleFrom(
-                fixedSize: const Size(122, 40),
-                elevation: 0,
-                backgroundColor: Colors.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text(
-                'Voir',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            const SizedBox(height: 43),
-            const Text(
-              'La Carte',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              height: 250,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 0,
-                    blurRadius: 10,
-                    offset: const Offset(0, 3), // changes position of shadow
+                  const SizedBox(height: 17),
+                  const Text(
+                    'Des interrogations, des questions, des craintes ou des demandes ? Notre FAQ peut vous permettre de répondre à vous besoins.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
+                  Ink(
+                    child: InkWell(
+                      onTap: () {},
+                      child: const Text(
+                        'Lire plus...',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  ElevatedButton(
+                    onPressed: () => {},
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(122, 40),
+                      elevation: 0,
+                      backgroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
+                      'Voir',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 43),
+                  const Text(
+                    'La Carte',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 0,
+                          blurRadius: 10,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: GoogleMap(
+                        zoomGesturesEnabled: false,
+                        zoomControlsEnabled: false,
+                        tiltGesturesEnabled: false,
+                        scrollGesturesEnabled: false,
+                        rotateGesturesEnabled: false,
+                        myLocationButtonEnabled: false,
+                        onMapCreated: _onMapCreated,
+                        initialCameraPosition: _initialPosition,
+                        markers: _markers,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 52),
                 ],
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(24),
-                child: GoogleMap(
-                  zoomGesturesEnabled: false,
-                  zoomControlsEnabled: false,
-                  tiltGesturesEnabled: false,
-                  scrollGesturesEnabled: false,
-                  rotateGesturesEnabled: false,
-                  myLocationButtonEnabled: false,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: _initialPosition,
-                  markers: _markers,
-                ),
-              ),
             ),
-            const SizedBox(height: 52),
           ],
         ),
       ),
