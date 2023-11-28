@@ -29,7 +29,7 @@ class WithTab extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.4,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
-              color: Colors.white,
+              color: Color(0xFFF6F6F6),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),

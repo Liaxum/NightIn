@@ -20,14 +20,14 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: const Duration(milliseconds: 200),
         backgroundColor: Colors.transparent,
-        color: Colors.grey.shade200,
+        color: Color(0xFFFDFDFDFD),
         key: _bottomNavigationKey,
         items: const <Widget>[
           Icon(Icons.search, size: 30),
-          Icon(Icons.explore, size: 30),
-          Icon(Icons.home_outlined, size: 30),
+          Icon(Icons.star_border_sharp, size: 30),
+          Icon(Icons.add_circle_outline, size: 30),
           Icon(Icons.comment_outlined, size: 30),
-          Icon(Icons.account_circle_outlined, size: 30),
+          Icon(Icons.person_2_outlined, size: 30),
         ],
         index: _pageController.initialPage,
         onTap: (index) {

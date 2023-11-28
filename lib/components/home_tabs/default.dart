@@ -1,10 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:loop_page_view/loop_page_view.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:group_button/group_button.dart';
+import 'package:card_swiper/card_swiper.dart';
 
 class Default extends StatefulWidget {
   const Default({Key? key}) : super(key: key); // Constructor
@@ -39,25 +39,16 @@ class _DefaultState extends State<Default> {
   Widget build(BuildContext context) {
     List valuesDataColors = [
       {"name": "Pachamma", "location": "Paris, France", "color": Colors.purple},
-      {"name": "Pachamma", "location": "Paris, France", "color": Colors.blue},
+      {"name": "Pachamma", "location": "Paris, France", "color": Colors.yellow},
       {"name": "Pachamma", "location": "Paris, France", "color": Colors.green}
     ];
 
     Widget loopPageBuilder(BuildContext context, int index) {
       return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
         padding: const EdgeInsets.only(left: 20, bottom: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
           color: valuesDataColors[index]["color"],
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
         ),
         child: Align(
           alignment: Alignment.bottomLeft,
@@ -89,12 +80,12 @@ class _DefaultState extends State<Default> {
 
     Widget recomandedBuilder(BuildContext context, int index) {
       return Container(
-        height: 250,
+        height: 254,
         padding: const EdgeInsets.all(11),
-        margin: const EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
+          color: const Color(0xFFFDFDFD),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -123,6 +114,7 @@ class _DefaultState extends State<Default> {
                 fontWeight: FontWeight.w400,
               ),
             ),
+            const SizedBox(height: 4),
             Text(
               valuesDataColors[index]["location"],
               style: const TextStyle(
@@ -149,9 +141,12 @@ class _DefaultState extends State<Default> {
                     children: [
                       IconButton(
                         onPressed: () {},
-                        icon: const Icon(Icons.menu),
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 28,
+                        ),
                       ),
-                      const SizedBox(width: 79),
+                      const SizedBox(width: 75),
                       const Icon(
                         Icons.my_location,
                         size: 25,
@@ -171,7 +166,7 @@ class _DefaultState extends State<Default> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 47),
+                  const SizedBox(height: 50),
                   const Text(
                     'Salut John,',
                     style: TextStyle(
@@ -182,85 +177,24 @@ class _DefaultState extends State<Default> {
                       ),
                     ),
                   ),
-                  const Center(
-                    child: Text(
-                      'Trouve des personnes pour rentrer en boite ?',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff0A2753),
-                      ),
+                  const Text(
+                    'Trouve des personnes pour rentrer en boite ?',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff0A2753),
                     ),
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 12),
                 ],
               ),
             ),
-            SizedBox(
-              height: 300,
-              child: LoopPageView.builder(
-                controller: LoopPageController(viewportFraction: 0.8),
-                itemCount: valuesDataColors.length,
-                itemBuilder: loopPageBuilder,
-                onPageChanged: (int index) {
-                  setState(() {
-                    _index = index;
-                  });
-                },
-              ),
-            ),
-            Center(
-              child: CarouselIndicator(
-                count: valuesDataColors.length,
-                index: _index,
-                color: const Color(0xFFEFEFF4),
-                activeColor: Colors.black,
-                height: 6,
-                width: 30,
-              ),
-            ),
-            const SizedBox(height: 43),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: GroupButton(
-                isRadio: true,
-                controller: GroupButtonController(
-                  selectedIndex: 0,
-                ),
-                buttons: const [
-                  "Populaire",
-                  "Electro",
-                  "Rap",
-                  "Afro",
-                  "Trap",
-                  "Rock",
-                  "Jazz",
-                  "Classique"
-                ],
-                buttonBuilder: (selected, value, context) => Container(
-                  margin: const EdgeInsets.only(left: 26),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: selected ? 3 : 0,
-                      backgroundColor: selected ? Colors.black : Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        side: BorderSide(
-                          color:
-                              selected ? Colors.black : const Color(0xffD6D6D6),
-                        ),
-                      ),
-                    ),
-                    onPressed: () => {},
-                    child: Text(
-                      value,
-                      style: TextStyle(
-                        color: selected ? Colors.white : Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            Swiper(
+              itemCount: valuesDataColors.length,
+              itemBuilder: loopPageBuilder,
+              itemHeight: 300,
+              itemWidth: MediaQuery.of(context).size.width,
+              layout: SwiperLayout.TINDER,
             ),
             const SizedBox(height: 43),
             Padding(
@@ -272,7 +206,7 @@ class _DefaultState extends State<Default> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'Recommander',
+                        'Top du moment',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -304,7 +238,7 @@ class _DefaultState extends State<Default> {
                 itemBuilder: recomandedBuilder,
               ),
             ),
-            const SizedBox(height: 43),
+            const SizedBox(height: 23),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 26),
               child: Column(
@@ -317,7 +251,7 @@ class _DefaultState extends State<Default> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 17),
+                  const SizedBox(height: 8),
                   const Text(
                     'Des interrogations, des questions, des craintes ou des demandes ? Notre FAQ peut vous permettre de répondre à vous besoins.',
                     style: TextStyle(
@@ -325,38 +259,28 @@ class _DefaultState extends State<Default> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Ink(
-                    child: InkWell(
-                      onTap: () {},
+                  const SizedBox(height: 11),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => {},
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(122, 40),
+                        elevation: 0,
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       child: const Text(
-                        'Lire plus...',
+                        'Voir',
                         style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: () => {},
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: const Size(122, 40),
-                      elevation: 0,
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    child: const Text(
-                      'Voir',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 43),
+                  const SizedBox(height: 30),
                   const Text(
                     'La Carte',
                     style: TextStyle(
@@ -364,7 +288,7 @@ class _DefaultState extends State<Default> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   Container(
                     height: 250,
                     decoration: BoxDecoration(
@@ -389,7 +313,7 @@ class _DefaultState extends State<Default> {
                         rotateGesturesEnabled: false,
                         myLocationButtonEnabled: false,
                         mapToolbarEnabled: false,
-                        liteModeEnabled: true,
+                        liteModeEnabled: !kIsWeb,
                         onMapCreated: _onMapCreated,
                         initialCameraPosition: _initialPosition,
                         markers: _markers,

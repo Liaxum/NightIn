@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Color(0xFFF6F6F6),
         statusBarIconBrightness: Brightness.dark,
       ),
     );
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           textTheme:
               Theme.of(context).textTheme.apply(fontFamily: 'Montserrat'),
-          scaffoldBackgroundColor: Colors.white,
+          scaffoldBackgroundColor: const Color(0xFFF6F6F6),
         ),
       ),
     );
