@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class OutTab extends StatelessWidget {
@@ -16,7 +17,9 @@ class OutTab extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/ou_onboarding.png'),
+                image: AssetImage(kIsWeb
+                    ? 'images/ou_onboarding.png'
+                    : 'assets/images/ou_onboarding.png'),
                 fit: BoxFit.cover,
               ),
             ),
