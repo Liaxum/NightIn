@@ -14,7 +14,7 @@ class GoTab extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/onboarding.png'),
+                image: AssetImage('images/party_onboarding.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -39,7 +39,7 @@ class GoTab extends StatelessWidget {
                   height: 62,
                 ),
                 const Text(
-                  'Mais tu n\'est pas accompagné !',
+                  'Viens découvrir nos solutions pour rentré',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
@@ -51,7 +51,7 @@ class GoTab extends StatelessWidget {
                   height: 20,
                 ),
                 const Text(
-                  'Tu as peur que le videau ne te laisse pas entrer ?',
+                  'Part découvrir le monde avec tes nouveaux amis !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 17,

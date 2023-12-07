@@ -16,7 +16,7 @@ class WithTab extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/onboarding.png'),
+                image: AssetImage('images/secu_onboarding.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -53,7 +53,7 @@ class WithTab extends StatelessWidget {
                   height: 20,
                 ),
                 const Text(
-                  'Tu as peur que le videau ne te laisse pas entrer ?',
+                  'Tu as peur que le videur ne te laisse pas rentrer ?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 17,

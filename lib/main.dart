@@ -33,9 +33,8 @@ class MyApp extends StatelessWidget {
           '/register': (_) => const Register(),
         },
         theme: ThemeData(
-          textTheme:
-              Theme.of(context).textTheme.apply(fontFamily: 'Montserrat'),
           scaffoldBackgroundColor: const Color(0xFFF6F6F6),
+          fontFamily: 'Montserrat',
         ),
       ),
     );

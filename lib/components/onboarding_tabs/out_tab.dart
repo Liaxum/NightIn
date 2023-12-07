@@ -16,7 +16,7 @@ class OutTab extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/onboarding.png'),
+                image: AssetImage('images/ou_onboarding.png'),
                 fit: BoxFit.cover,
               ),
             ),
