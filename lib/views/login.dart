@@ -1,125 +1,94 @@
 import 'package:flutter/material.dart';
-
-import '../components/login_form.dart';
+import 'package:night_in/components/login_register_tabs/basic_infos.dart';
+import 'package:night_in/components/login_register_tabs/login_tab.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key); // Constructor
 
   @override
-  State<StatefulWidget> createState() => _LoginState();
+  State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  bool _signInVisible = false;
-
-  toggleView() {
-    setState(() {
-      _signInVisible = !_signInVisible;
-    });
-  }
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.black,
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.5,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.white,
-            ),
-          ),
-          const Align(
-            alignment: AlignmentDirectional(0.02, -0.4),
-            child: Image(
-              image: AssetImage('images/big-guy.png'),
-              width: 336,
-              height: 336,
-            ),
-          ),
-          Align(
-            alignment: const AlignmentDirectional(0, 0.55),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                setState(() {
-                  _signInVisible = !_signInVisible;
-                });
-              },
-              child: RichText(
-                text: const TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'Tu as déjà un com',
+      body: Padding(
+        padding: const EdgeInsets.only(top: 50, left: 30, right: 30),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Ink(
+                  child: InkWell(
+                    onTap: () => _pageController.animateToPage(
+                      0,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    ),
+                    child: Text(
+                      'Connexion',
                       style: TextStyle(
-                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        decoration: _currentPage == 0
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
+                        color: _currentPage == 0
+                            ? Colors.black
+                            : const Color(0xFF898A8D),
                       ),
                     ),
-                    TextSpan(
-                      text: ' pte ? Se connecter',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    )
-                  ],
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 13.5,
-                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
+                Ink(
+                  child: InkWell(
+                    onTap: () => _pageController.animateToPage(
+                      1,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.ease,
+                    ),
+                    child: Text(
+                      'Inscrtiption',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        decoration: _currentPage == 1
+                            ? TextDecoration.underline
+                            : TextDecoration.none,
+                        color: _currentPage == 1
+                            ? Colors.black
+                            : const Color(0xFF898A8D),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-          Align(
-            alignment: const AlignmentDirectional(0, 0.7),
-            child: SizedBox(
-              height: 49,
-              width: 313,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true)
-                      .pushNamed('/register');
+            const SizedBox(height: 25),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.85,
+              width: MediaQuery.of(context).size.width,
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (int page) {
+                  setState(() {
+                    _currentPage = page;
+                  });
                 },
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    side: const BorderSide(
-                      color: Colors.white,
-                      width: 2,
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  'S\'INSCRIRE',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                children: const [
+                  LoginTab(),
+                  BasicInfos(),
+                ],
               ),
-            ),
-          ),
-          if (_signInVisible)
-            LoginForm(
-              toggleView: toggleView,
             )
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'views/home.dart';
 import 'views/onboarding.dart';
 import 'views/login.dart';
-import 'views/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
           '/onboarding': (_) => const Onboarding(),
           '/login': (_) => const Login(),
           '/home': (_) => const Home(),
-          '/register': (_) => const Register(),
         },
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xFFF6F6F6),

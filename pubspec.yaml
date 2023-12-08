@@ -47,7 +47,8 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   card_swiper : ^3.0.0
   pointer_interceptor: ^0.9.3+7
-  flutter_svg: ^2.0.9
+  iconify_flutter: ^0.0.5
+
 
 
 dev_dependencies:
