@@ -1,10 +1,10 @@
 import 'dart:async';
 
-// import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Default extends StatefulWidget {
   const Default({Key? key}) : super(key: key); // Constructor
@@ -18,19 +18,49 @@ class _DefaultState extends State<Default> {
       Completer<GoogleMapController>();
   final Set<Marker> _markers = {}; // Markers
 
-  final CameraPosition _initialPosition = const CameraPosition(
-    target: LatLng(48.8566, 2.3522),
-    zoom: 11.0,
-  );
-
   void _onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+  }
+
+  Future<Position> getPos() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // Location services are not enabled don't continue
+      // accessing the position and request users of the
+      // App to enable the location services.
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    final Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    return position;
   }
 
   @override
   void initState() {
     super.initState();
-    //_center = Geolocator.getCurrentPosition();
   }
 
   @override
@@ -304,18 +334,38 @@ class _DefaultState extends State<Default> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(24),
                       child: PointerInterceptor(
-                        child: GoogleMap(
-                          zoomGesturesEnabled: false,
-                          zoomControlsEnabled: false,
-                          tiltGesturesEnabled: false,
-                          scrollGesturesEnabled: false,
-                          rotateGesturesEnabled: false,
-                          myLocationButtonEnabled: false,
-                          mapToolbarEnabled: false,
-                          //liteModeEnabled: !kIsWeb,
-                          onMapCreated: _onMapCreated,
-                          initialCameraPosition: _initialPosition,
-                          markers: _markers,
+                        child: FutureBuilder(
+                          future: getPos(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return GoogleMap(
+                                onTap: (_) =>
+                                    Navigator.of(context).pushNamed('/maps'),
+                                zoomGesturesEnabled: false,
+                                zoomControlsEnabled: false,
+                                tiltGesturesEnabled: false,
+                                scrollGesturesEnabled: false,
+                                rotateGesturesEnabled: false,
+                                myLocationButtonEnabled: false,
+                                myLocationEnabled: true,
+                                mapToolbarEnabled: false,
+                                //liteModeEnabled: !kIsWeb,
+                                onMapCreated: _onMapCreated,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(
+                                    snapshot.data!.latitude,
+                                    snapshot.data!.longitude,
+                                  ),
+                                  zoom: 12,
+                                ),
+                                markers: _markers,
+                              );
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
